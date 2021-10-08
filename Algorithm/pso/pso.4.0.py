@@ -5,7 +5,7 @@ class Pso():
     def __init__(self, cars, psgs, gc, gp, end):
         self.c1 = 1.49445
         self.c2 = 1.49445
-        self.maxgen = 1000
+        self.maxgen = 200
         self.sizepop = 20
 
         self.gc = gc
@@ -27,7 +27,7 @@ class Pso():
         xv = []
         for _ in range(self.sizepop):
             design = defaultdict(int)
-            tempxv = [self.K - 1] * self.L
+            tempxv = []
             idxlist = np.random.choice(np.arange(self.L), size=self.L, replace=False)
             for i in idxlist:
                 mindist = np.inf
@@ -38,7 +38,7 @@ class Pso():
                         mindist = tempdist
                         driver = j
                 design[driver] += self.gp[i]
-                tempxv[i] = driver
+                tempxv.append(driver)
             xv.append(tempxv)
         xv = np.array(xv)
         # xv = np.random.randint(0, self.K, (self.sizepop, self.L))
@@ -95,7 +95,7 @@ class Pso():
                         dist += np.inf
                 
                 dists.append(dist)
-            fits.append(sum(dists) + len(design) * 1e4)
+            fits.append(sum(dists) + len(design) * 1e3)
         return fits
 
             
@@ -235,11 +235,10 @@ b = []
 for i in range(1):
     p = Pso(cars, psgs, gc, gp, end)
     p.main()
-    fits = p.trace
     a.append(p.zbestfitness)
     b.append(p.zbest)
 print(b[np.argmin(a)])
-print(a)
+
 def drawmap(zbest):
     # plt.plot(list(range(self.maxgen)), self.trace)
 
@@ -247,7 +246,7 @@ def drawmap(zbest):
     design = defaultdict(list)
     for i in range(len(psgs)):
         design[xv[i]].append(i)
-    print(len(design))
+    print(design)
     for car, psg in design.items():
         px = [cars[car][0]]
         py = [cars[car][1]]
@@ -264,9 +263,6 @@ def drawmap(zbest):
     for i, num in enumerate(gc):
         plt.text(cars[i][0] + 0.0001, cars[i][1] + 0.0001, num)
     plt.scatter(end[0], end[1])
-
-    plt.figure(2)
-    plt.plot(list(range(p.maxgen)), fits)
     plt.show()
     
 
