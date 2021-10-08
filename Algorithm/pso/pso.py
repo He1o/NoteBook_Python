@@ -47,7 +47,7 @@ class Pso():
             pop = np.clip(pop + v, *self.Prange[idx])
             V.append(v)
             pops.append(pop)
-        pops[0] = pop = np.ceil(pops[0]).astype(np.int)
+        pops[0] = pop = np.ceil(pops[0]).astype(np.int64)
         self.pops = pops
         self.V = V
 
