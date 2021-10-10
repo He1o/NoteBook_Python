@@ -232,7 +232,7 @@ end = np.array([104.50, 30.60])
 
 a = []
 b = []
-for i in range(1):
+for i in range(10):
     p = Pso(cars, psgs, gc, gp, end)
     p.main()
     fits = p.trace
