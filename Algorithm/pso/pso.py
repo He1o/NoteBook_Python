@@ -17,8 +17,8 @@ class Pso():
         self.L = len(psgs)
         self.K = len(cars)
         self.Prange = [[0, self.K - 1], [0, self.L - 1]]
-        # self.Vrange = [[-(self.K - 1), (self.K - 1)], [-(self.L - 1), (self.L - 1)]]
-        self.Vrange = [[-2, 2], [-2, 2]]
+        self.Vrange = [[-(self.K - 1), (self.K - 1)], [-(self.L - 1), (self.L - 1)]]
+        # self.Vrange = [[-2, 2], [-2, 2]]
 
         self.trace = []
 
@@ -47,7 +47,7 @@ class Pso():
             pop = np.clip(pop + v, *self.Prange[idx])
             V.append(v)
             pops.append(pop)
-        pops[0] = pop = np.ceil(pops[0]).astype(np.int64)
+        pops[0] = np.ceil(pops[0]).astype(np.int64)
         self.pops = pops
         self.V = V
 
@@ -63,16 +63,17 @@ class Pso():
             for car, psg in design.items():
                 dist = 0
                 px = np.array(self.cars[car])
-                for tup in sorted(zip(psg, xr[psg]), key=lambda x: x[1]):
+                for idx, tup in enumerate(sorted(zip(psg, xr[psg]), key=lambda x: x[1])):
                     py = np.array(self.psgs[tup[0]])
                     dist += np.sqrt(np.sum((px - py)**2))
                     px = py
+                    xr[psg[idx]] = idx
                 dist += np.sqrt(np.sum((px - self.end)**2))
                 if self.gc[car] < sum(self.gp[psg]):
                     dist += np.inf
                 
                 dists.append(dist)
-            fits.append(sum(dists) + len(design) * 100)
+            fits.append(sum(dists) + len(design) * 10)
         return fits
 
             
@@ -125,12 +126,14 @@ gp = np.array([2, 3, 1, 1, 2, 2, 3, 1])
 
 a = []
 b = []
-for i in range(20):
+for i in range(1):
     p = Pso(cars, psgs, gc, gp, end)
     p.main()
     a.append(p.zbestfitness)
     b.append(p.zbest)
+    fits = p.trace
 print(b[np.argmin(a)])
+print(a)
 
 def drawmap(zbest):
     # plt.plot(list(range(self.maxgen)), self.trace)
@@ -151,6 +154,10 @@ def drawmap(zbest):
     [p[0] for p in psgs]
     plt.scatter([p[0] for p in psgs], [p[1] for p in psgs], c = 'blue')
     plt.scatter([p[0] for p in cars], [p[1] for p in cars], c = 'red')
+    
+    
+    plt.figure(2)
+    plt.plot(list(range(p.maxgen)), fits)
     plt.show()
 
 drawmap(b[np.argmin(a)])

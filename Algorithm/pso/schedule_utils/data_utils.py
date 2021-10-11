@@ -12,21 +12,21 @@ Create Date: 2021/2/2
 import json
 from typing import List, Tuple
 
-import redis
+# import redis
 
 from schedule_utils.models import Car, Order
 
-r = redis.Redis(host='localhost', port=6379, decode_responses=True, db=1)
+# r = redis.Redis(host='localhost', port=6379, decode_responses=True, db=1)
 
 
-def have_data():
-    """
-    判断数据库中是否存在数据
-    :return:
-    """
-    if r.llen('data') > 0:
-        return True
-    return False
+# def have_data():
+#     """
+#     判断数据库中是否存在数据
+#     :return:
+#     """
+#     if r.llen('data') > 0:
+#         return True
+#     return False
 
 
 def load_data(mode: int):
@@ -38,7 +38,8 @@ def load_data(mode: int):
     car_list: List[Car] = []  # 车辆列表
     order_list: List[Order] = []  # 订单列表
 
-    data = json.loads(r.rpop('data'))
+    with open('Algorithm/pso/22+3.json') as f:
+        data = json.load(f)
     # max_distance = int(data["config"]["far_distance"])  # 最远距离
     order_distance = int(data['config']['order_distance'])  # 订单最远距离
     car_distance = int(data['config']['car_distance'])  # 车辆最远距离
@@ -95,17 +96,17 @@ def load_data(mode: int):
     return order_list, car_list, type_, order_distance, car_distance, reserve_rate
 
 
-def push_data(result: List[Tuple[Order, Car]]):
-    r.lpush('table', json.dumps([[[ret[0].id_, ret[1].id_], ret[0].passenger_num] for ret in result]))
+# def push_data(result: List[Tuple[Order, Car]]):
+#     r.lpush('table', json.dumps([[[ret[0].id_, ret[1].id_], ret[0].passenger_num] for ret in result]))
 
 
-def receive_data():
-    with open(r'C:\Users\10219\Desktop\Passengers-scheduling-plus\data.txt', 'r', encoding='utf-8') as f:
-        data_txt = f.read()
-    r.lpush('data', data_txt)
+# def receive_data():
+#     with open(r'C:\Users\10219\Desktop\Passengers-scheduling-plus\data.txt', 'r', encoding='utf-8') as f:
+#         data_txt = f.read()
+#     r.lpush('data', data_txt)
 
 
-def send_data():
-    with open(r'C:\Users\10219\Desktop\Passengers-scheduling-plus\data.txt', 'r', encoding='utf-8') as f:
-        data_txt = f.read()
-    r.lpush('data', data_txt)
+# def send_data():
+#     with open(r'C:\Users\10219\Desktop\Passengers-scheduling-plus\data.txt', 'r', encoding='utf-8') as f:
+#         data_txt = f.read()
+#     r.lpush('data', data_txt)

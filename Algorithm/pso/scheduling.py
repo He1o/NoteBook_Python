@@ -13,7 +13,7 @@ import math
 from typing import List
 
 from schedule_utils.caculate_utils import k_means, get_distance, DP, find_closest_obj
-from schedule_utils.data_utils import load_data, push_data, have_data
+from schedule_utils.data_utils import load_data
 from schedule_utils.models import Order, Car
 
 result = []  # 计算结果
@@ -412,14 +412,15 @@ def schedule(must_cars: List[Car], cars: List[Car], orders: List[Order], order_d
         push_data(result)
 
 
-def run(mode: int, debug=False):
-    if not have_data():
-        return None
+def run(mode: int, debug=True):
+    # if not have_data():
+    #     return None
 
     result.clear()
     order_list, car_list, type_, order_distance, car_distance, reserve_rate = load_data(mode)
     must_cars, available_cars, available_orders = preprocess_data(car_list, order_list, reserve_rate)
     ret = schedule(must_cars, available_cars, available_orders, order_distance, car_distance, type_, debug=debug)
+    print(ret)
     if debug:
         return ret
 

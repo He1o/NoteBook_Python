@@ -1,13 +1,12 @@
 import numpy as np
 from collections import defaultdict
 import matplotlib.pyplot as plt
-import json
 class Pso():
     def __init__(self, cars, psgs, gc, gp, end):
         self.c1 = 1.49445
         self.c2 = 1.49445
-        self.maxgen = 200
-        self.sizepop = 20
+        self.maxgen = 500
+        self.sizepop = 200
 
         self.gc = gc
         self.gp = gp
@@ -17,83 +16,77 @@ class Pso():
 
         self.L = len(psgs)
         self.K = len(cars)
-        self.Prange = [[0, self.K - 1], [0, self.L - 1]]
+        self.Prange = [0, self.K - 1]
         # self.Vrange = [[-(self.K - 1), (self.K - 1)], [-(self.L - 1), (self.L - 1)]]
-        self.Vrange = [[-1, 1], [-1, 1]]
+        self.Vrange = [-1, 1]
 
         self.trace = []
 
 
     def initpops(self):
         xv = []
-        # for _ in range(self.sizepop // 2):
-        #     design = defaultdict(int)
-        #     tempxv = []
-        #     idxlist = np.random.choice(np.arange(self.L), size=self.L, replace=False)
-        #     for i in idxlist:
-        #         mindist = np.inf
-        #         driver = self.K - 1
-        #         for j in range(self.K):
-        #             tempdist = np.sqrt(np.sum((np.array(self.psgs[i]) - np.array(self.cars[j]))**2)) * 1e5
-        #             if  tempdist < mindist and (design[j] + self.gp[i]) <= self.gc[j]:
-        #                 mindist = tempdist
-        #                 driver = j
-        #         design[driver] += self.gp[i]
-        #         tempxv.append(driver)
-        #     xv.append(tempxv)
-
         for _ in range(self.sizepop):
-            with open('Algorithm/pso/22+3.json') as f:
-                data = json.load(f)
-            users = {}
-            for idx, user in enumerate(data['user_list']) :
-                users[int(user['id'])] = idx
-            drivers = {}
-            for idx, div in enumerate(data['driver_list']) :
-                drivers[int(div['driver_id'])] = idx
-
-            ret = [{'car': {'id': 1, 'sites': 4, 'lnglat': [104.096554, 30.653434]}, 'orders': [{'order': {'id': 4, 'lnglat': [104.099425, 30.648473], 'passenger_num': 1, 'is_grab': 0}}, {'order': {'id': 16, 'lnglat': [104.096228, 30.655635], 'passenger_num': 3, 'is_grab': 0}}]}, {'car': {'id': 2, 'sites': 6, 'lnglat': [104.075736, 30.650107]}, 'orders': [{'order': {'id': 17, 'lnglat': [104.082366, 30.659917], 'passenger_num': 1, 'is_grab': 0}}, {'order': {'id': 6, 'lnglat': [104.078654, 30.653789], 'passenger_num': 3, 'is_grab': 0}}]}, {'car': {'id': 3, 'sites': 4, 'lnglat': [104.080448, 30.647407]}, 'orders': [{'order': {'id': 7, 'lnglat': [104.072903, 30.645745], 'passenger_num': 1, 'is_grab': 0}}]}, {'car': {'id': 4, 'sites': 4, 'lnglat': [104.077281, 30.658662]}, 'orders': [{'order': {'id': 15, 'lnglat': [104.075113, 30.659585], 'passenger_num': 1, 'is_grab': 0}}, {'order': {'id': 1, 'lnglat': [104.075655, 30.664052], 'passenger_num': 1, 'is_grab': 0}}]}, {'car': {'id': 6, 'sites': 4, 'lnglat': [104.092902, 30.656964]}, 'orders': [{'order': {'id': 3, 'lnglat': [104.095305, 30.659031], 'passenger_num': 2, 'is_grab': 0}}, {'order': {'id': 11, 'lnglat': [104.108265, 30.653051], 'passenger_num': 1, 'is_grab': 1}}]}, {'car': {'id': 7, 'sites': 6, 'lnglat': [104.085452, 30.664464]}, 'orders': [{'order': {'id': 2, 'lnglat': [104.086121, 30.663835], 'passenger_num': 3, 'is_grab': 0}}]}, {'car': {'id': 9, 'sites': 4, 'lnglat': [104.070843, 30.652312]}, 'orders': [{'order': {'id': 18, 'lnglat': [104.058634, 30.663203], 'passenger_num': 2, 'is_grab': 1}}]}, {'car': {'id': 10, 'sites': 4, 'lnglat': [104.090069, 30.64049]}, 'orders': [{'order': {'id': 5, 'lnglat': [104.086464, 30.640954], 'passenger_num': 4, 'is_grab': 0}}]}, {'car': {'id': 11, 'sites': 5, 'lnglat': [104.086379, 30.66711]}, 'orders': [{'order': {'id': 9, 'lnglat': [104.085349, 30.670327], 'passenger_num': 2, 'is_grab': 1}}]}, {'car': {'id': 12, 'sites': 6, 'lnglat': [104.109295, 30.66284]}, 'orders': [{'order': {'id': 10, 'lnglat': [104.103631, 30.668777], 'passenger_num': 2, 'is_grab': 1}}]}, {'car': {'id': 13, 'sites': 8, 'lnglat': [104.063719, 30.66805]}, 'orders': [{'order': {'id': 8, 'lnglat': [104.073332, 30.669072], 'passenger_num': 1, 'is_grab': 1}}]}, {'car': {'id': 14, 'sites': 6, 'lnglat': [104.066294, 30.63319]}, 'orders': [{'order': {'id': 12, 'lnglat': [104.069384, 30.637396], 'passenger_num': 1, 'is_grab': 1}}]}, {'car': {'id': 15, 'sites': 4, 'lnglat': [104.057969, 30.65239]}, 'orders': [{'order': {'id': 20, 'lnglat': [104.055716, 30.641347], 'passenger_num': 2, 'is_grab': 1}}, {'order': {'id': 19, 'lnglat': [104.061981, 30.644522], 'passenger_num': 1, 'is_grab': 1}}, {'order': {'id': 21, 'lnglat': [104.049793, 30.652349], 'passenger_num': 1, 'is_grab': 1}}]}, {'car': {'id': 16, 'sites': 6, 'lnglat': [104.096764, 30.63384]}, 'orders': [{'order': {'id': 13, 'lnglat': [104.089469, 30.640202], 'passenger_num': 5, 'is_grab': 0}}]}, {'car': {'id': 17, 'sites': 4, 'lnglat': [104.083289, 30.65028]}, 'orders': [{'order': {'id': 14, 'lnglat': [104.086658, 30.652903], 'passenger_num': 2, 'is_grab': 0}}]}]
-            tempxv = [self.K - 1 for _ in range(self.L)]
-            for car in ret:
-                for user in car['orders']:
-                    tempxv[users[user['order']['id']]] = drivers[car['car']['id']]
+            design = defaultdict(int)
+            tempxv = [self.K - 1] * self.L
+            idxlist = np.random.choice(np.arange(self.L), size=self.L, replace=False)
+            for i in idxlist:
+                mindist = np.inf
+                driver = self.K - 1
+                for j in range(self.K):
+                    tempdist = np.sqrt(np.sum((np.array(self.psgs[i]) - np.array(self.cars[j]))**2)) * 1e5
+                    if  tempdist < mindist and (design[j] + self.gp[i]) <= self.gc[j]:
+                        mindist = tempdist
+                        driver = j
+                design[driver] += self.gp[i]
+                tempxv[i] = driver
             xv.append(tempxv)
         xv = np.array(xv)
         # xv = np.random.randint(0, self.K, (self.sizepop, self.L))
         
         
         
-        xr = np.random.uniform(0, self.L, (self.sizepop, self.L))
-        vv = np.random.randint(*self.Vrange[0], (self.sizepop, self.L))
-        vr = np.random.uniform(*self.Vrange[1], (self.sizepop, self.L))
-        self.pops = [xv, xr]
-        self.V = [vv, vr]
+        vv = np.random.randint(*self.Vrange, (self.sizepop, self.L))
+        self.pops = xv
+        self.V = vv
         self.fits = self.fitness(self.pops)
-        self.zbest = [xv[np.argmin(self.fits)], xr[np.argmin(self.fits)]]
+        self.zbest = xv[np.argmin(self.fits)]
         self.gbest = self.pops
         self.zbestfitness = min(self.fits)
+        self.maxfitness = max(self.fits)
         self.gbestfitness = self.fits
         return self.fits
     
     def updata(self):
-        pops = []
-        V = []
-        for idx, pop in enumerate(self.pops):
-            v = self.V[idx] + self.c1 * np.random.rand(self.sizepop, self.L) * (self.gbest[idx] - pop) + \
-                              self.c2 * np.random.rand(self.sizepop, self.L) * (self.zbest[idx] - pop)
-            v = np.clip(v, *self.Vrange[idx])
-            pop = np.clip(pop + v, *self.Prange[idx])
-            V.append(v)
-            pops.append(pop)
-        pops[0] = pop = np.ceil(pops[0]).astype(np.int64)
-        self.pops = pops
-        self.V = V
+        v = self.V + self.c1 * np.random.rand(self.sizepop, self.L) * (self.gbest - self.pops) + \
+                            self.c2 * np.random.rand(self.sizepop, self.L) * (self.zbest - self.pops)
+        v = np.clip(v, *self.Vrange)
+        pop = np.clip(self.pops + v, *self.Prange)
+
+        self.pops = np.ceil(pop).astype(np.int64)
+        self.V = v
+
+    def rule(self):
+        
+        design = defaultdict(list)
+        for i in range(len(psgs)):
+            design[self.zbest[i]].append(i)
+        sorted(design.items(), key = lambda x: len(x[1]))
+        for i in range(len(psgs)):
+            px = np.array(self.psgs[i])
+            py2 = np.array(self.cars[self.zbest[i]])
+
+            for j in design.keys():
+                py1 = np.array(self.cars[j])
+                if np.sqrt(np.sum((px - py1)**2)) * 1e5 < np.sqrt(np.sum((px - py2)**2)) * 1e5 \ 
+                    and self.gc[car] < sum(self.gp[psg]):
 
 
+
+    
     def fitness(self, pops):
         fits = []
         for i in range(self.sizepop):
-            xv, xr = pops[0][i], pops[1][i]
+            xv = pops[i]
             design = defaultdict(list)
             for i in range(self.L):
                 design[xv[i]].append(i)
@@ -104,55 +97,35 @@ class Pso():
                 else:
                     dist = 0
                     px = np.array(self.cars[car])
-                    for tup in sorted(zip(psg, xr[psg]), key=lambda x: x[1]):
-                        py = np.array(self.psgs[tup[0]])
+                    for p in psg:
+                        py = np.array(self.psgs[p])
                         dist += np.sqrt(np.sum((px - py)**2)) * 1e5
-                        px = py
-                    dist += np.sqrt(np.sum((px - self.end)**2))
+                        # px = py
+                    # dist += np.sqrt(np.sum((px - self.end)**2))
                     if self.gc[car] < sum(self.gp[psg]):
-                        dist += np.inf
+                        dist += 1e6
                 
                 dists.append(dist)
-            fits.append(sum(dists) + len(design) * 1e3)
-        return fits
+            fits.append(sum(dists) + len(design) * 5e3)
+        return np.array(fits)
 
-            
-    def drawmap(self):
-        # plt.plot(list(range(self.maxgen)), self.trace)
-
-        xv, xr = self.zbest
-        design = defaultdict(list)
-        for i in range(self.L):
-            design[xv[i]].append(i)
-        for car, psg in design.items():
-            px = [self.cars[car][0]]
-            py = [self.cars[car][1]]
-            for tup in sorted(zip(psg, xr[psg]), key=lambda x: x[1]):
-                px.append(self.psgs[tup[0]][0])
-                py.append(self.psgs[tup[0]][1])
-            
-            plt.plot(px, py)
-        
-        [p[0] for p in self.psgs]
-        plt.scatter([p[0] for p in self.psgs], [p[1] for p in self.psgs], c = 'blue')
-        plt.scatter([p[0] for p in self.cars], [p[1] for p in self.cars], c = 'red')
-        plt.show()
 
     def main(self):
         self.initpops()
-        for i in range(0):
+        for i in range(self.maxgen):
             self.updata()
             self.fits = self.fitness(self.pops)
             for j in range(self.sizepop):
                 if self.fits[j] < self.gbestfitness[j]:
                     self.gbestfitness[j] = self.fits[j]
-                    self.gbest[0][j] = self.pops[0][j]
-                    self.gbest[1][j] = self.pops[1][j]
+                    self.gbest[j] = self.pops[j]
                 if self.fits[j] < self.zbestfitness:
                     self.zbestfitness = self.fits[j]
-                    self.zbest = [self.pops[0][j], self.pops[1][j]]
+                    self.zbest = self.pops[j]
             
             self.trace.append(self.zbestfitness)
+            # self.cross()
+            # self.select()
         # self.drawmap()
         
 
@@ -253,24 +226,40 @@ b = []
 for i in range(1):
     p = Pso(cars, psgs, gc, gp, end)
     p.main()
-    a.append(p.zbestfitness)
-    b.append(p.zbest)
-print(b[np.argmin(a)])
-
-def drawmap(zbest):
-    # plt.plot(list(range(self.maxgen)), self.trace)
-
-    xv, xr = zbest
+    fits = p.trace
+    xv = p.zbest
     design = defaultdict(list)
     for i in range(len(psgs)):
         design[xv[i]].append(i)
-    print(design)
+    newcars = []
+    newgc = []
+    for i in design.keys():
+        newcars.append(cars[i])
+        newgc.append(gc[i])
+    p = Pso(newcars, psgs, newgc, gp, end)
+    p.main()
+    fits = p.trace
+    a.append(p.zbestfitness)
+    b.append(p.zbest)
+
+print(b[np.argmin(a)])
+print(a)
+def drawmap(zbest):
+    # plt.plot(list(range(self.maxgen)), self.trace)
+
+    xv= zbest
+    design = defaultdict(list)
+    for i in range(len(psgs)):
+        design[xv[i]].append(i)
+    print(len(design))
     for car, psg in design.items():
         px = [cars[car][0]]
         py = [cars[car][1]]
-        for tup in sorted(zip(psg, xr[psg]), key=lambda x: x[1]):
-            px.append(psgs[tup[0]][0])
-            py.append(psgs[tup[0]][1])
+        for ps in psg:
+            px.append(psgs[ps][0])
+            px.append(cars[car][0])
+            py.append(psgs[ps][1])
+            py.append(cars[car][1])
         
         plt.plot(px, py)
     
@@ -281,6 +270,9 @@ def drawmap(zbest):
     for i, num in enumerate(gc):
         plt.text(cars[i][0] + 0.0001, cars[i][1] + 0.0001, num)
     plt.scatter(end[0], end[1])
+
+    plt.figure(2)
+    plt.plot(list(range(p.maxgen)), fits)
     plt.show()
     
 
