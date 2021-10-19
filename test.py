@@ -37,3 +37,5 @@ x = {2:[3,4,4,5],4:[6,7,8]
 }
 sorted(x.items(), key = lambda x: len(x))
 print(sorted(x.items(), key = lambda x: len(x[1])))
+
+print(2<=2)

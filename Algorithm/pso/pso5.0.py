@@ -65,22 +65,65 @@ class Pso():
         self.pops = np.ceil(pop).astype(np.int64)
         self.V = v
 
+
+    # def fitness(self, pops):
+    #     fits = []
+    #     for i in range(self.sizepop):
+    #         xv, xr = pops[0][i], pops[1][i]
+    #         design = defaultdict(list)
+    #         for i in range(self.L):
+    #             design[xv[i]].append(i)
+    #         dists = []
+    #         for car, psg in design.items():
+    #             if car == self.K - 1:
+    #                 dist = 1e6 * len(psg)
+    #             else:
+    #                 dist = 0
+    #                 px = np.array(self.cars[car])
+    #                 for tup in sorted(zip(psg, xr[psg]), key=lambda x: x[1]):
+    #                     py = np.array(self.psgs[tup[0]])
+    #                     dist += np.sqrt(np.sum((px - py)**2)) * 1e5
+    #                     px = py
+    #                 dist += np.sqrt(np.sum((px - self.end)**2))
+    #                 if self.gc[car] < sum(self.gp[psg]):
+    #                     dist += np.inf
+                
+    #             dists.append(dist)
+    #         fits.append(sum(dists) + len(design) * 1e4)
+    #     return fits
+
     def rule(self):
-        
-        design = defaultdict(list)
-        for i in range(len(psgs)):
-            design[self.zbest[i]].append(i)
-        sorted(design.items(), key = lambda x: len(x[1]))
-        for i in range(len(psgs)):
-            px = np.array(self.psgs[i])
-            py2 = np.array(self.cars[self.zbest[i]])
+        self.zbest = [27, 27, 26, 27, 26, 23, 27, 3, 6, 6, 0, 8, 2, 2, 3, 11, 11, 11, 13, 18, 15, 3, 0, 3, 13, 13, 15, 13]
 
-            for j in design.keys():
-                py1 = np.array(self.cars[j])
-                if np.sqrt(np.sum((px - py1)**2)) * 1e5 < np.sqrt(np.sum((px - py2)**2)) * 1e5 \ 
-                    and self.gc[car] < sum(self.gp[psg]):
+        flag = True
+        while flag:
+            design = defaultdict(list)
+            for i in range(self.L):
+                design[self.zbest[i]].append(i)
+            sorlist = sorted(design.items(), key = lambda x: len(x[1]))
+
+            for order in sorlist:
+                exchg = None
+                cdx, psgs = order
+                py1 = np.array(self.cars[cdx])
+                for pdx in psgs:
+                    px = np.array(self.psgs[pdx])
+                    for cdx2 in design.keys():
+                        py2 = np.array(self.cars[cdx2])
+                        if np.sqrt(np.sum((px - py2)**2)) * 1e5 < np.sqrt(np.sum((px - py1)**2)) * 1e5 \
+                            and sum(self.gp[design[cdx2]]) + self.gp[pdx] <= self.gc[cdx2]:
+                            py1 = py2
+                            exchg = [pdx, cdx2]
+                    if exchg:
+                        break
+                if exchg:
+                    self.zbest[exchg[0]] = exchg[1]
+                    break
+            else:
+                flag = False
 
 
+        print(self.zbest)
 
     
     def fitness(self, pops):
@@ -103,10 +146,10 @@ class Pso():
                         # px = py
                     # dist += np.sqrt(np.sum((px - self.end)**2))
                     if self.gc[car] < sum(self.gp[psg]):
-                        dist += 1e6
+                        dist += np.inf
                 
                 dists.append(dist)
-            fits.append(sum(dists) + len(design) * 5e3)
+            fits.append(sum(dists) + len(design) * 1e4)
         return np.array(fits)
 
 
@@ -124,6 +167,7 @@ class Pso():
                     self.zbest = self.pops[j]
             
             self.trace.append(self.zbestfitness)
+        # self.rule()
             # self.cross()
             # self.select()
         # self.drawmap()
@@ -227,20 +271,22 @@ for i in range(1):
     p = Pso(cars, psgs, gc, gp, end)
     p.main()
     fits = p.trace
-    xv = p.zbest
-    design = defaultdict(list)
-    for i in range(len(psgs)):
-        design[xv[i]].append(i)
-    newcars = []
-    newgc = []
-    for i in design.keys():
-        newcars.append(cars[i])
-        newgc.append(gc[i])
-    p = Pso(newcars, psgs, newgc, gp, end)
-    p.main()
-    fits = p.trace
     a.append(p.zbestfitness)
     b.append(p.zbest)
+    xv = b[np.argmin(a)]
+    # design = defaultdict(list)
+    # for i in range(len(psgs)):
+    #     design[xv[i]].append(i)
+    # newcars = []
+    # newgc = []
+    # for i in design.keys():
+    #     newcars.append(cars[i])
+    #     newgc.append(gc[i])
+    # p = Pso(newcars, psgs, newgc, gp, end)
+    # p.main()
+    # fits = p.trace
+    # a.append(p.zbestfitness)
+    # b.append(p.zbest)
 
 print(b[np.argmin(a)])
 print(a)
@@ -271,8 +317,8 @@ def drawmap(zbest):
         plt.text(cars[i][0] + 0.0001, cars[i][1] + 0.0001, num)
     plt.scatter(end[0], end[1])
 
-    plt.figure(2)
-    plt.plot(list(range(p.maxgen)), fits)
+    # plt.figure(2)
+    # plt.plot(list(range(p.maxgen)), fits)
     plt.show()
     
 
