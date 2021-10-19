@@ -8,7 +8,7 @@ def get_time():
 
 def create_git_order(time):
     """ 生成git指令并执行 """
-    order_arr = ["git add *","git commit -m " + '"' + time + '"',"git push origin master"] # 创建指令集合
+    order_arr = ["git add -A","git commit -m " + '"' + time + '"',"git push"] # 创建指令集合
     for order in order_arr:
         system(order) # 执行每一项指令
 
