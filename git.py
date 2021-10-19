@@ -2,22 +2,32 @@ from time import ctime, time # 导入time模块中的ctime方法
 from os import system # 导入os模块中的system方法
 
 
-def get_time():
-    """ 获取当前时间 """
-    return ctime() # 获取当前时间并返回到函数调用处
 
-def create_git_order(time):
-    """ 生成git指令并执行 """
-    order_arr = ["git add -A","git commit -m " + '"' + time + '"',"git push"] # 创建指令集合
+
+def git_push(repository):
+    currtime = ctime()
+    order_arr = ['cd {}'.format(repository)]
+    order_arr.append("git add -A")
+    order_arr.append("git commit -m " + '"' + currtime + '"'), 
+    order_arr.append("git push")
     for order in order_arr:
-        system(order) # 执行每一项指令
+        system(order) 
 
-def put_file(time):
-    """ 在桌面放置文件 """
-    file = open(r"C:\Users\HKplus\Desktop\git_push_time.txt","w") # 此处的路径根据自己实际需求配置
-    file.write(time + "完成最后一次提交")
+
+    with open('/Users/renren/git_push/git_record.txt', 'a') as f:
+        f.write('time: {} {}'.format(currtime, repository))
+
+
+def main():
+    repositories = [
+        '/Users/renren/NoteBook/NoteBook_Python',
+        '/Users/renren/NoteBook/NoteBook_MySQL',
+        '/Users/renren/NoteBook/NoteBook_LeetCode',
+        '/Users/renren/NoteBook/NoteBook_HTML',
+        '/Users/renren/NoteBook/Cyrus_NoteBook',
+    ]
+    for rep in repositories:
+        git_push(rep)
 
 if __name__ == "__main__":
-    date = get_time() # 获取时间
-    create_git_order(date) # 提交到git
-    put_file(date) # 在桌面创建文件
+    main() #
