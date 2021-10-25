@@ -125,5 +125,16 @@ end = np.array([104.50, 30.60])
 # px = np.array([103.9137, 30.5937])
 # print(np.sqrt(np.sum((px - np.array([104.0503, 30.6521]))**2))*1e5)
 
-import itertools
-print(list(itertools.permutations([2,3,4,6])))
+# import itertools
+# print(list(itertools.permutations([2,3,4,6])))
+
+# a = np.where([0,1,0,1])[0]
+# b = np.delete(a, np.random.randint(len([])))
+
+# print(b)
+# print(a)
+
+a = [1,2,3,4]
+b = a[:]
+b[0] = 3
+print(a)
