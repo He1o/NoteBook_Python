@@ -141,6 +141,7 @@ for i in range(1):
 
 print(b[np.argmin(a)])
 print(a)
+print(p.bestans)
 def drawmap(zbest):
 
     design = defaultdict(list)
