@@ -28,14 +28,13 @@ import numpy as np
 # a[1] = b[0]
 # print(a)
 
+def aa(params):
+    def bb(params):
+        params['test'] = 2
+        print(params)
+    print(params)
+    bb(params)
+    print(params)
 
-a = np.array([2,3,3,4])
-print(a[np.array([2,3])])
-print(5e3)
 
-x = {2:[3,4,4,5],4:[6,7,8]
-}
-sorted(x.items(), key = lambda x: len(x))
-print(sorted(x.items(), key = lambda x: len(x[1])))
-
-print(2<=2)
+aa({2:3})
