@@ -1,0 +1,291 @@
+{
+	"user_list": [{
+		"size": "1",
+		"coordinate": ["104.07565", "30.664052"],
+		"id": "1",
+		"is_grab": 0,
+		"bind_car": ""
+	}, {
+		"size": "2",
+		"coordinate": ["103.972802", "30.587585"],
+		"id": "50",
+		"is_grab": 1,
+		"bind_car": ""
+	}, {
+		"size": "1",
+		"coordinate": ["103.973741", "30.587955"],
+		"id": "51",
+		"is_grab": 1,
+		"bind_car": ""
+	}, {
+		"size": "3",
+		"coordinate": ["103.980314", "30.587485"],
+		"id": "52",
+		"is_grab": 1,
+		"bind_car": ""
+	}, {
+		"size": "1",
+		"coordinate": ["103.975619", "30.584122"],
+		"id": "53",
+		"is_grab": 1,
+		"bind_car": ""
+	}, {
+		"size": "2",
+		"coordinate": ["103.975613", "30.587212"],
+		"id": "54",
+		"is_grab": 1,
+		"bind_car": ""
+	}, {
+		"size": "3",
+		"coordinate": ["103.978436", "30.590303"],
+		"id": "55",
+		"is_grab": 1,
+		"bind_car": ""
+	}, {
+		"size": "2",
+		"coordinate": ["103.981253", "30.592622"],
+		"id": "56",
+		"is_grab": 1,
+		"bind_car": "77"
+	}, {
+		"size": "3",
+		"coordinate": ["104.086121", "30.66383"],
+		"id": "2",
+		"is_grab": 0,
+		"bind_car": ""
+	}, {
+		"size": "2",
+		"coordinate": ["104.095305", "30.659031"],
+		"id": "3",
+		"is_grab": 0,
+		"bind_car": ""
+	}, {
+		"size": "1",
+		"coordinate": ["104.099425", "30.648473"],
+		"id": "4",
+		"is_grab": 0,
+		"bind_car": ""
+	}, {
+		"size": "4",
+		"coordinate": ["104.086464", "30.64094"],
+		"id": "5",
+		"is_grab": 0,
+		"bind_car": ""
+	}, {
+		"size": "3",
+		"coordinate": ["104.078654", "30.653789"],
+		"id": "6",
+		"is_grab": 0,
+		"bind_car": ""
+	}, {
+		"size": "1",
+		"coordinate": ["104.072903", "30.64574"],
+		"id": "7",
+		"is_grab": 0,
+		"bind_car": ""
+	}, {
+		"size": "1",
+		"coordinate": ["104.073332", "30.669072"],
+		"id": "8",
+		"is_grab": 1,
+		"bind_car": ""
+	}, {
+		"size": "2",
+		"coordinate": ["104.085349", "30.670327"],
+		"id": "9",
+		"is_grab": 1,
+		"bind_car": "5"
+	}, {
+		"size": "2",
+		"coordinate": ["104.103631", "30.668777"],
+		"id": "10",
+		"is_grab": 1,
+		"bind_car": ""
+	}, {
+		"size": "1",
+		"coordinate": ["104.108265", "30.653051"],
+		"id": "11",
+		"is_grab": 1,
+		"bind_car": "5"
+	}, {
+		"size": "1",
+		"coordinate": ["104.069384", "30.637396"],
+		"id": "12",
+		"is_grab": 1,
+		"bind_car": ""
+	}, {
+		"size": "5",
+		"coordinate": ["104.089469", "30.640202"],
+		"id": "13",
+		"is_grab": 0,
+		"bind_car": ""
+	}, {
+		"size": "2",
+		"coordinate": ["104.086658", "30.652903"],
+		"id": "14",
+		"is_grab": 0,
+		"bind_car": ""
+	}, {
+		"size": "1",
+		"coordinate": ["104.075113", "30.659585"],
+		"id": "15",
+		"is_grab": 0,
+		"bind_car": ""
+	}, {
+		"size": "3",
+		"coordinate": ["104.096228", "30.655635"],
+		"id": "16",
+		"is_grab": 0,
+		"bind_car": ""
+	}, {
+		"size": "1",
+		"coordinate": ["104.082366", "30.659917"],
+		"id": "17",
+		"is_grab": 0,
+		"bind_car": ""
+	}, {
+		"size": "2",
+		"coordinate": ["104.058634", "30.663203"],
+		"id": "18",
+		"is_grab": 1,
+		"bind_car": ""
+	}, {
+		"size": "1",
+		"coordinate": ["104.061981", "30.644522"],
+		"id": "19",
+		"is_grab": 1,
+		"bind_car": "2"
+	}, {
+		"size": "2",
+		"coordinate": ["104.055716", "30.641347"],
+		"id": "20",
+		"is_grab": 1,
+		"bind_car": ""
+	}, {
+		"size": "1",
+		"coordinate": ["104.049793", "30.652349"],
+		"id": "21",
+		"is_grab": 1,
+		"bind_car": "3"
+	}],
+	"gid": "152",
+	"driver_list": [{
+		"driver_id": "1",
+		"coordinate": ["104.09655", "30.65343"],
+		"sites": 4
+	}, {
+		"driver_id": "2",
+		"coordinate": ["104.075736", "30.650107"],
+		"sites": 6
+	}, {
+		"driver_id": "3",
+		"coordinate": ["104.0808", "30.64707"],
+		"sites": 4
+	}, {
+		"driver_id": "4",
+		"coordinate": ["104.077281", "30.658662"],
+		"sites": 4
+	}, {
+		"driver_id": "5",
+		"coordinate": ["104.09685", "30.644411"],
+		"sites": 6
+	}, {
+		"driver_id": "6",
+		"coordinate": ["104.092902", "30.656964"],
+		"sites": 4
+	}, {
+		"driver_id": "7",
+		"coordinate": ["104.08552", "30.664864"],
+		"sites": 6
+	}, {
+		"driver_id": "8",
+		"coordinate": ["104.076766", "30.640571"],
+		"sites": 6
+	}, {
+		"driver_id": "9",
+		"coordinate": ["104.070843", "30.652312"],
+		"sites": 4
+	}, {
+		"driver_id": "10",
+		"coordinate": ["104.090069", "30.640497"],
+		"sites": 4
+	}, {
+		"driver_id": "11",
+		"coordinate": ["104.086379", "30.667116"],
+		"sites": 5
+	}, {
+		"driver_id": "12",
+		"coordinate": ["104.109295", "30.662834"],
+		"sites": 6
+	}, {
+		"driver_id": "13",
+		"coordinate": ["104.063719", "30.668075"],
+		"sites": 8
+	}, {
+		"driver_id": "14",
+		"coordinate": ["104.066294", "30.633149"],
+		"sites": 6
+	}, {
+		"driver_id": "15",
+		"coordinate": ["104.057969", "30.652349"],
+		"sites": 4
+	}, {
+		"driver_id": "16",
+		"coordinate": ["104.096764", "30.633814"],
+		"sites": 6
+	}, {
+		"driver_id": "17",
+		"coordinate": ["104.08389", "30.650208"],
+		"sites": 8
+	}, {
+		"driver_id": "18",
+		"coordinate": ["104.075306", "30.645851"],
+		"sites": 4
+	}, {
+		"driver_id": "19",
+		"coordinate": ["104.095648", "30.64083"],
+		"sites": 6
+	}, {
+		"driver_id": "20",
+		"coordinate": ["104.095648", "30.64083"],
+		"sites": 6
+	}, {
+		"driver_id": "71",
+		"coordinate": ["103.954680", "30.59416"],
+		"sites": 6
+	}, {
+		"driver_id": "72",
+		"coordinate": ["103.914680", "30.59416"],
+		"sites": 6
+	}, {
+		"driver_id": "73",
+		"coordinate": ["103.924680", "30.59416"],
+		"sites": 6
+	}, {
+		"driver_id": "74",
+		"coordinate": ["103.934680", "30.59416"],
+		"sites": 6
+	}, {
+		"driver_id": "75",
+		"coordinate": ["103.944680", "30.51416"],
+		"sites": 6
+	}, {
+		"driver_id": "76",
+		"coordinate": ["103.964680", "30.55416"],
+		"sites": 6
+	}, {
+		"driver_id": "77",
+		"coordinate": ["103.977680", "30.59516"],
+		"sites": 6
+	}, {
+		"driver_id": "78",
+		"coordinate": ["103.974680", "30.59416"],
+		"sites": 6
+	}],
+	"config": {
+		"order_distance": "5000",
+		"car_distance": "5000",
+		"reserve_rate": "0.5",
+		"type": "receive"
+	}
+}

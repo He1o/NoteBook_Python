@@ -27,14 +27,15 @@ import numpy as np
 # np.clip(a, 2, 3)
 # a[1] = b[0]
 # print(a)
+import sys
+import time
+def ProgressBar(current, total, bar_length = 50):
+    hashes = '#' * int(current / total * bar_length)
+    sys.stdout.write("\rPercent: [{}] %{}".format(hashes.ljust(bar_length, ' '), current))
+    if current == total - 1:
+        sys.stdout.write('\n')
+    time.sleep(0.01)
 
-def aa(params):
-    def bb(params):
-        params['test'] = 2
-        print(params)
-    print(params)
-    bb(params)
-    print(params)
-
-
-aa({2:3})
+for percent in range(0, 100):
+    ProgressBar(percent, 100)
+print(1111)
